@@ -1,0 +1,137 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R /Resources << /Font << /F1 5 0 R /F2 6 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 1800 >>
+stream
+BT
+/F1 24 Tf
+60 740 Td
+(Aayush Shetty) Tj
+/F2 11 Tf
+0 -24 Td
+(Information Science & Engineering Student) Tj
+/F2 10 Tf
+0 -20 Td
+(Mangaluru, India  |  +91 97402 93359  |  aayushshetty1015@gmail.com  |  github.com/aayushshetty15) Tj
+0.5 0 0 0.5 k
+0 -10 Td
+550 0 re S
+0 0 0 1 k
+/F1 14 Tf
+0 -30 Td
+(PROFILE) Tj
+/F2 10 Tf
+0 -16 Td
+(Motivated and detail-oriented Information Science and Engineering student with hands-on) Tj
+0 -13 Td
+(experience in full-stack web development and a research internship focused on computer) Tj
+0 -13 Td
+(vision and deep learning. Passionate about building responsive, scalable web applications.) Tj
+/F1 14 Tf
+0 -28 Td
+(EDUCATION) Tj
+/F2 11 Tf
+0 -16 Td
+(B.E. in Computer Science and Engineering) Tj
+/F2 10 Tf
+0 -13 Td
+(AJ Institute of Engineering and Technology  |  Dec 2022 - May 2026  |  CGPA: 7.68/10) Tj
+/F2 11 Tf
+0 -20 Td
+(Pre-University \(PCMS\)) Tj
+/F2 10 Tf
+0 -13 Td
+(Govinda Dasa PU College  |  Jun 2020 - Aug 2022  |  Grade: 93%) Tj
+/F2 11 Tf
+0 -20 Td
+(Secondary Education) Tj
+/F2 10 Tf
+0 -13 Td
+(Dr M.R.S.M English Medium High School  |  2020  |  CBSE  |  Grade: 78%) Tj
+/F1 14 Tf
+0 -28 Td
+(EXPERIENCE) Tj
+/F2 11 Tf
+0 -16 Td
+(Intern | Research Internship) Tj
+/F2 10 Tf
+0 -13 Td
+(National Institute of Engineering and Technology, Surathkal  |  Feb 2026 - May 2026) Tj
+0 -13 Td
+(- Evaluated model performance on 9,000+ image-question pairs using Exact Match and other metrics) Tj
+0 -13 Td
+(- Preprocessed and quality-validated 9,000+ data samples for reliable model evaluation) Tj
+0 -13 Td
+(- Organized research datasets for experimentation and benchmarking) Tj
+0 -13 Td
+(- Streamlined dataset processing and evaluation workflows with Python and Git) Tj
+/F1 14 Tf
+0 -28 Td
+(PROJECTS) Tj
+/F2 11 Tf
+0 -16 Td
+(SmartHire - AI-Powered Recruitment Platform) Tj
+/F2 10 Tf
+0 -13 Td
+(React, Node.js, Express, MongoDB  |  10+ responsive pages, 100% protected routes) Tj
+0 -13 Td
+(Full-stack recruitment platform with job posting, application management, secure auth,) Tj
+0 -13 Td
+(role-based access control, 8+ RESTful API endpoints, and 5+ MongoDB collections.) Tj
+/F2 11 Tf
+0 -20 Td
+(MediCare - Healthcare Management System) Tj
+/F2 10 Tf
+0 -13 Td
+(React, Node.js, Express, MongoDB, Tailwind CSS  |  8+ modules, 8+ RESTful endpoints) Tj
+0 -13 Td
+(Full-stack healthcare system for Patients and Providers with appointment scheduling,) Tj
+0 -13 Td
+(patient records, prescriptions, and medical information management.) Tj
+/F1 14 Tf
+0 -28 Td
+(SKILLS) Tj
+/F2 10 Tf
+0 -16 Td
+(Languages: JavaScript, Python, PHP, HTML5, CSS3) Tj
+0 -13 Td
+(Frameworks: React, Express.js, Node.js, Tailwind CSS) Tj
+0 -13 Td
+(Databases: MongoDB, PostgreSQL, Firebase) Tj
+0 -13 Td
+(Tools: Git & GitHub) Tj
+0 -13 Td
+(Soft Skills: Communication, Teamwork, Problem Solving, Time Management) Tj
+0 -13 Td
+(Languages: English, Hindi, Kannada) Tj
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+6 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+xref
+0 7
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000266 00000 n 
+0000002120 00000 n 
+0000002177 00000 n 
+trailer
+<< /Size 7 /Root 1 0 R >>
+startxref
+2234
+%%EOF
