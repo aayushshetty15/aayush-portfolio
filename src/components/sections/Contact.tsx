@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Mail, Phone, MapPin, Github, Send } from 'lucide-react';
+import { Mail, Phone, MapPin, Github, Instagram,Send, Icon, Linkedin } from 'lucide-react';
 import SectionHeading, { RevealWrapper } from '@/components/SectionHeading';
 
 const CONTACT_INFO = [
@@ -10,6 +10,8 @@ const CONTACT_INFO = [
 
 const SOCIALS = [
   { icon: Github, label: 'GitHub', href: 'https://github.com/aayushshetty15' },
+  { icon: Instagram, label: 'Instagram', href: 'https://www.instagram.com/aayushshettyyyy' },
+  {icon : Linkedin,label :'LinkedIn',href:"https://www.linkedin.com/in/aayushshetty/"},
 ];
 
 export default function Contact() {

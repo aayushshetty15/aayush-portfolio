@@ -2,11 +2,14 @@ import { useEffect, useState } from 'react';
 import { ArrowDown, Download, MousePointerClick, Sparkles } from 'lucide-react';
 import { useScrollY } from '@/hooks/useParallax';
 import { usePrefersReducedMotion } from '@/hooks/useMediaQuery';
+import { useTheme } from '@/context/ThemeContext';
 
 export default function Hero() {
   const scrollY = useScrollY();
   const reducedMotion = usePrefersReducedMotion();
   const [mounted, setMounted] = useState(false);
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
 
   useEffect(() => {
     setMounted(true);
@@ -92,7 +95,43 @@ export default function Hero() {
           />
         </>
       )}
-
+      {/* Profile Image */}
+      <div
+        className="absolute left-1/2 top-1/2 pointer-events-none"
+        style={{
+          transform: `
+            translate(
+              calc(-50% + ${Math.min(scrollY * 0.5, 500)}px),
+              calc(-50% + ${parallaxOffset}px)
+            )
+          `,
+          opacity: Math.max(0.35 - scrollY / 1000, 0),
+          transition: 'transform 0.15s ease-out, opacity 0.15s ease-out',
+        }}
+      >
+        <img
+            src={isDark ? '/profile.png' : ''}
+            alt="Aayush Shetty"
+            className="
+              h-[500px] w-auto object-contain
+              sm:h-[600px]
+              md:h-[700px]
+              lg:h-[780px]
+            "/>
+      </div>
+      {/* Theme Blend Overlay */}
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background: `
+            radial-gradient(
+              ellipse at center,
+              transparent 20%,
+              var(--bg-primary) 75%
+            )
+          `,
+        }}
+      />
       {/* Content */}
       <div
         className="relative z-10 mx-auto max-w-7xl px-6 lg:px-10"

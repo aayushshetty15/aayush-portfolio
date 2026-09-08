@@ -19,16 +19,8 @@ export const SKILLS = [
   { name: 'HTML5', level: 94, category: 'Programming Languages' },
   { name: 'CSS3', level: 90, category: 'Programming Languages' },
   { name: 'MongoDB', level: 86, category: 'Databases' },
-  { name: 'PostgreSQL', level: 70, category: 'Databases' },
   { name: 'Firebase', level: 72, category: 'Databases' },
   { name: 'Git & GitHub', level: 84, category: 'Tools & Platforms' },
-  { name: 'English', level: 95, category: 'Languages' },
-  { name: 'Hindi', level: 88, category: 'Languages' },
-  { name: 'Kannada', level: 95, category: 'Languages' },
-  { name: 'Communication', level: 86, category: 'Soft Skills' },
-  { name: 'Teamwork', level: 88, category: 'Soft Skills' },
-  { name: 'Problem Solving', level: 86, category: 'Soft Skills' },
-  { name: 'Time Management', level: 82, category: 'Soft Skills' },
 ];
 
 export const EXPERIENCE = [
@@ -42,6 +34,19 @@ export const EXPERIENCE = [
       'Preprocessed and quality-validated 9,000+ data samples for reliable model evaluation',
       'Organized research datasets for experimentation and benchmarking',
       'Streamlined dataset processing and evaluation workflows with Python and Git',
+    ],
+  },
+  {
+    role: 'Full Stack Developer Intern',
+    company: 'Zephyr Technologies',
+    period: 'Aug 2026 - Nov 2026',
+    description: 'Worked on software development projects at Zephyr Technologies, gaining hands-on experience in application development, debugging, testing, and implementing practical software solutions.',
+
+    achievements: [
+    'Developed and enhanced application features based on project requirements',
+    'Implemented and tested software components to improve functionality and reliability',
+    'Debugged and resolved application issues to ensure smooth system performance',
+    'Collaborated with team members using Git and modern development tools to manage project workflows'
     ],
   },
 ];

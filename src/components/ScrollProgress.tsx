@@ -1,5 +1,4 @@
 import { useScrollProgress } from '@/hooks/useParallax';
-
 export default function ScrollProgress() {
   const progress = useScrollProgress();
 
