@@ -28,7 +28,7 @@ export default function About() {
   return (
     <section
       id="about"
-      className="relative py-28 px-6 lg:px-10"
+      className="relative py-16 sm:py-24 md:py-28 px-4 sm:px-6 lg:px-10 overflow-hidden"
       style={{ backgroundColor: 'var(--bg-secondary)' }}
     >
       {/* Transition glow */}
@@ -44,13 +44,13 @@ export default function About() {
           subtitle="A motivated and detail-oriented Information Science and Engineering student with hands-on experience in full-stack development, computer vision, and deep learning."
         />
 
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {ABOUT_CARDS.map((card, i) => {
             const Icon = card.icon;
             return (
               <RevealWrapper key={card.title} delay={i * 120} direction="up">
                 <div
-                  className="group h-full rounded-2xl border border-themed bg-card p-6 transition-all duration-300 hover:-translate-y-1"
+                  className="group h-full rounded-2xl border border-themed bg-card p-5 sm:p-6 transition-all duration-300 hover:-translate-y-1"
                   style={{
                     boxShadow: '0 0 0 1px var(--border)',
                   }}

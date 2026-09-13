@@ -97,11 +97,11 @@ export default function Hero() {
       )}
       {/* Profile Image */}
       <div
-        className="absolute left-1/2 top-1/2 pointer-events-none"
+        className="absolute left-1/2 top-1/2 pointer-events-none overflow-hidden"
         style={{
           transform: `
             translate(
-              calc(-50% + ${Math.min(scrollY * 0.5, 500)}px),
+              calc(-50% + ${Math.min(scrollY * 0.3, 250)}px),
               calc(-50% + ${parallaxOffset}px)
             )
           `,
@@ -113,10 +113,10 @@ export default function Hero() {
             src={isDark ? '/profile.png' : ''}
             alt="Aayush Shetty"
             className="
-              h-[500px] w-auto object-contain
-              sm:h-[600px]
-              md:h-[700px]
-              lg:h-[780px]
+              h-[340px] w-auto object-contain
+              sm:h-[480px]
+              md:h-[620px]
+              lg:h-[760px]
             "/>
       </div>
       {/* Theme Blend Overlay */}
@@ -134,7 +134,7 @@ export default function Hero() {
       />
       {/* Content */}
       <div
-        className="relative z-10 mx-auto max-w-7xl px-6 lg:px-10"
+        className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-10"
         style={{
           transform: `translateY(${-contentOffset}px)`,
           opacity: Math.max(1 - scrollY / 600, 0),
@@ -143,22 +143,22 @@ export default function Hero() {
         <div className="flex flex-col items-center text-center">
           {/* Badge */}
           <div
-            className="mb-6 flex items-center gap-2 rounded-full glass border-themed px-4 py-2"
+            className="mb-4 sm:mb-6 flex items-center gap-2 rounded-full glass border-themed px-3.5 py-1.5 sm:px-4 sm:py-2"
             style={{
               opacity: mounted ? 1 : 0,
               transform: mounted ? 'translateY(0)' : 'translateY(20px)',
               transition: 'all 600ms ease-out',
             }}
           >
-            <Sparkles className="h-4 w-4 text-accent" style={{ color: 'var(--accent)' }} />
-            <span className="text-sm font-medium text-secondary" style={{ color: 'var(--text-secondary)' }}>
+            <Sparkles className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-accent" style={{ color: 'var(--accent)' }} />
+            <span className="text-xs sm:text-sm font-medium text-secondary" style={{ color: 'var(--text-secondary)' }}>
               Available for new opportunities
             </span>
           </div>
 
           {/* Name */}
           <h1
-            className="text-5xl font-extrabold tracking-tight sm:text-6xl md:text-7xl lg:text-8xl"
+            className="text-4xl font-extrabold tracking-tight sm:text-6xl md:text-7xl lg:text-8xl"
             style={{
               opacity: mounted ? 1 : 0,
               transform: mounted ? 'translateY(0)' : 'translateY(30px)',
@@ -171,7 +171,7 @@ export default function Hero() {
 
           {/* Role */}
           <p
-            className="mt-4 text-xl font-medium text-secondary sm:text-2xl md:text-3xl"
+            className="mt-3 sm:mt-4 text-lg font-medium text-secondary sm:text-2xl md:text-3xl px-2"
             style={{
               color: 'var(--text-secondary)',
               opacity: mounted ? 1 : 0,
@@ -184,7 +184,7 @@ export default function Hero() {
 
           {/* Description */}
           <p
-            className="mt-6 max-w-2xl text-base text-secondary sm:text-lg"
+            className="mt-4 sm:mt-6 max-w-2xl text-sm leading-relaxed text-secondary sm:text-base md:text-lg px-2"
             style={{
               color: 'var(--text-secondary)',
               opacity: mounted ? 1 : 0,
@@ -197,7 +197,7 @@ export default function Hero() {
 
           {/* CTA */}
           <div
-            className="mt-10 flex flex-col items-center gap-4 sm:flex-row"
+            className="mt-8 sm:mt-10 flex flex-col items-center gap-4 sm:flex-row"
             style={{
               opacity: mounted ? 1 : 0,
               transform: mounted ? 'translateY(0)' : 'translateY(30px)',
@@ -207,13 +207,13 @@ export default function Hero() {
             <a
               href="/Aayush_Shetty_Resume.pdf"
               download
-              className="group flex items-center gap-2.5 rounded-full px-8 py-3.5 font-semibold text-white transition-all duration-300 hover:scale-105"
+              className="group flex items-center justify-center gap-2.5 rounded-full px-7 py-3 sm:px-8 sm:py-3.5 text-sm sm:text-base font-semibold text-white transition-all duration-300 hover:scale-105"
               style={{
                 background: 'linear-gradient(135deg, var(--accent), var(--accent-bright))',
                 boxShadow: '0 0 30px var(--glow)',
               }}
             >
-              <Download className="h-5 w-5 transition-transform duration-300 group-hover:translate-y-0.5" />
+              <Download className="h-4 w-4 sm:h-5 sm:w-5 transition-transform duration-300 group-hover:translate-y-0.5" />
               Download Resume
             </a>
           </div>

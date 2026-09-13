@@ -42,7 +42,9 @@
     background-color: var(--bg-primary);
     color: var(--text-primary);
     font-family: 'Inter', system-ui, sans-serif;
-    overflow-x: hidden;
+    overflow-x: clip;
+    width: 100%;
+    max-width: 100vw;
   }
 
   ::selection {
@@ -86,6 +88,24 @@
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
   }
+
+  /* 3D Coin & Token Aesthetics */
+  .badge-3d {
+    transform-style: preserve-3d;
+    box-shadow:
+      0 12px 28px -6px rgba(0, 0, 0, 0.45),
+      0 6px 14px -4px rgba(0, 0, 0, 0.35),
+      inset 0 1px 1px 0 rgba(255, 255, 255, 0.25),
+      inset 0 -2px 4px 0 rgba(0, 0, 0, 0.4);
+  }
+
+  .badge-3d:hover {
+    box-shadow:
+      0 20px 38px -8px rgba(0, 0, 0, 0.6),
+      0 10px 20px -5px rgba(229, 9, 20, 0.3),
+      inset 0 1.5px 2px 0 rgba(255, 255, 255, 0.4),
+      inset 0 -2px 6px 0 rgba(0, 0, 0, 0.5);
+  }
 }
 
 @layer utilities {
@@ -105,6 +125,18 @@
 
   .perspective {
     perspective: 1000px;
+  }
+
+  .perspective-1200 {
+    perspective: 1200px;
+  }
+
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+
+  .backface-hidden {
+    backface-visibility: hidden;
   }
 }
 

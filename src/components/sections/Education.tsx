@@ -6,7 +6,7 @@ export default function Education() {
   return (
     <section
       id="education"
-      className="relative py-28 px-6 lg:px-10"
+      className="relative py-16 sm:py-24 md:py-28 px-4 sm:px-6 lg:px-10 overflow-hidden"
       style={{ backgroundColor: 'var(--bg-secondary)' }}
     >
       <div className="mx-auto max-w-4xl">
@@ -16,16 +16,16 @@ export default function Education() {
           subtitle="The foundation that shaped my approach to problem-solving."
         />
 
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
           {EDUCATION.map((edu, i) => (
             <RevealWrapper key={edu.degree} delay={i * 200} direction="up">
               <div
-                className="group relative rounded-2xl border border-themed bg-card p-8 transition-all duration-300 hover:-translate-y-1"
+                className="group relative rounded-2xl border border-themed bg-card p-5 sm:p-6 md:p-8 transition-all duration-300 hover:-translate-y-1"
                 style={{ boxShadow: '0 0 0 1px var(--border)' }}
               >
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
                   <div
-                    className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-110"
+                    className="flex h-12 w-12 sm:h-14 sm:w-14 shrink-0 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-110"
                     style={{
                       background: 'linear-gradient(135deg, var(--accent), var(--accent-bright))',
                     }}

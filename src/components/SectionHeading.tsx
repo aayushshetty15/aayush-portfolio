@@ -14,7 +14,7 @@ export default function SectionHeading({ eyebrow, title, subtitle, align = 'cent
   return (
     <div
       ref={ref}
-      className={`mb-16 ${align === 'center' ? 'text-center' : 'text-left'}`}
+      className={`mb-10 sm:mb-16 ${align === 'center' ? 'text-center' : 'text-left'}`}
       style={{
         opacity: isVisible ? 1 : 0,
         transform: isVisible ? 'translateY(0)' : 'translateY(30px)',
@@ -22,18 +22,18 @@ export default function SectionHeading({ eyebrow, title, subtitle, align = 'cent
       }}
     >
       <div className={`mb-3 flex items-center gap-3 ${align === 'center' ? 'justify-center' : ''}`}>
-        <div className="h-[2px] w-8" style={{ background: 'var(--accent)' }} />
-        <span className="text-sm font-semibold uppercase tracking-widest text-accent" style={{ color: 'var(--accent)' }}>
+        <div className="h-[2px] w-6 sm:w-8" style={{ background: 'var(--accent)' }} />
+        <span className="text-xs sm:text-sm font-semibold uppercase tracking-widest text-accent" style={{ color: 'var(--accent)' }}>
           {eyebrow}
         </span>
-        <div className="h-[2px] w-8" style={{ background: 'var(--accent)' }} />
+        <div className="h-[2px] w-6 sm:w-8" style={{ background: 'var(--accent)' }} />
       </div>
-      <h2 className="text-4xl font-bold tracking-tight text-primary sm:text-5xl" style={{ color: 'var(--text-primary)' }}>
+      <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl md:text-5xl" style={{ color: 'var(--text-primary)' }}>
         {title}
       </h2>
       {subtitle && (
         <p
-          className={`mt-4 text-base text-secondary sm:text-lg ${align === 'center' ? 'mx-auto max-w-2xl' : 'max-w-2xl'}`}
+          className={`mt-3 sm:mt-4 text-sm sm:text-base md:text-lg text-secondary ${align === 'center' ? 'mx-auto max-w-2xl' : 'max-w-2xl'}`}
           style={{ color: 'var(--text-secondary)' }}
         >
           {subtitle}

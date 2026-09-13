@@ -30,7 +30,7 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="relative py-28 px-6 lg:px-10"
+      className="relative py-16 sm:py-24 md:py-28 px-4 sm:px-6 lg:px-10 overflow-hidden"
       style={{ backgroundColor: 'var(--bg-secondary)' }}
     >
       <div className="mx-auto max-w-6xl">
@@ -40,32 +40,32 @@ export default function Contact() {
           subtitle="Have a project in mind or just want to say hi? My inbox is always open."
         />
 
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
           {/* Contact info - slides from left */}
           <RevealWrapper direction="left">
-            <div className="flex h-full flex-col justify-between rounded-2xl border border-themed bg-card p-8">
+            <div className="flex h-full flex-col justify-between rounded-2xl border border-themed bg-card p-5 sm:p-6 md:p-8">
               <div>
-                <h3 className="mb-6 text-2xl font-bold text-primary" style={{ color: 'var(--text-primary)' }}>
+                <h3 className="mb-4 sm:mb-6 text-xl sm:text-2xl font-bold text-primary" style={{ color: 'var(--text-primary)' }}>
                   Get in Touch
                 </h3>
                 <div className="space-y-4">
                   {CONTACT_INFO.map((item) => {
                     const Icon = item.icon;
                     const content = (
-                      <div className="flex items-center gap-4">
+                      <div className="flex items-center gap-3 sm:gap-4">
                         <div
-                          className="flex h-11 w-11 items-center justify-center rounded-xl"
+                          className="flex h-10 w-10 sm:h-11 sm:w-11 shrink-0 items-center justify-center rounded-xl"
                           style={{
                             background: 'linear-gradient(135deg, var(--accent), var(--accent-bright))',
                           }}
                         >
                           <Icon className="h-5 w-5 text-white" />
                         </div>
-                        <div>
+                        <div className="min-w-0">
                           <p className="text-xs uppercase tracking-wider text-secondary" style={{ color: 'var(--text-secondary)' }}>
                             {item.label}
                           </p>
-                          <p className="text-sm font-semibold text-primary" style={{ color: 'var(--text-primary)' }}>
+                          <p className="text-sm font-semibold text-primary break-all" style={{ color: 'var(--text-primary)' }}>
                             {item.value}
                           </p>
                         </div>
@@ -94,7 +94,7 @@ export default function Contact() {
                         key={social.label}
                         href={social.href}
                         aria-label={social.label}
-                        className="flex h-11 w-11 items-center justify-center rounded-xl glass border-themed transition-all duration-300 hover:scale-110"
+                        className="flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-xl glass border-themed transition-all duration-300 hover:scale-110"
                         style={{ boxShadow: '0 0 0 1px var(--border)' }}
                       >
                         <Icon className="h-5 w-5 text-secondary transition-colors duration-300 hover:text-accent" />
@@ -110,7 +110,7 @@ export default function Contact() {
           <RevealWrapper direction="right">
             <form
               onSubmit={handleSubmit}
-              className="flex h-full flex-col gap-5 rounded-2xl border border-themed bg-card p-8"
+              className="flex h-full flex-col gap-4 sm:gap-5 rounded-2xl border border-themed bg-card p-5 sm:p-6 md:p-8"
             >
               <div>
                 <label className="mb-2 block text-sm font-medium text-primary" style={{ color: 'var(--text-primary)' }}>

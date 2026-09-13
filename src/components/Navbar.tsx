@@ -40,19 +40,19 @@ export default function Navbar() {
           boxShadow: scrolled ? '0 4px 30px rgba(0,0,0,0.15)' : 'none',
         }}
       >
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-10">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3.5 sm:px-6 sm:py-4 lg:px-10">
           {/* Logo */}
           <button
             onClick={() => handleNavClick('home')}
             className="group flex items-center gap-2"
           >
             <div
-              className="flex h-9 w-9 items-center justify-center rounded-lg font-bold text-white transition-transform duration-300 group-hover:scale-110"
+              className="flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-lg font-bold text-white transition-transform duration-300 group-hover:scale-110"
               style={{ background: 'linear-gradient(135deg, var(--accent), var(--accent-bright))' }}
             >
               A
             </div>
-            <span className="text-lg font-bold tracking-tight text-primary">
+            <span className="text-base sm:text-lg font-bold tracking-tight text-primary">
               Aayush<span className="text-accent">.</span>
             </span>
           </button>
@@ -89,12 +89,12 @@ export default function Navbar() {
 
           {/* Mobile controls */}
           {isMobile && (
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2.5">
               <ThemeToggle />
               <button
                 onClick={() => setMenuOpen(!menuOpen)}
                 aria-label="Toggle menu"
-                className="flex h-10 w-10 items-center justify-center rounded-full glass border-themed"
+                className="flex h-9 w-9 items-center justify-center rounded-full glass border border-themed transition-transform active:scale-95"
               >
                 {menuOpen ? <X className="h-5 w-5 text-primary" /> : <Menu className="h-5 w-5 text-primary" />}
               </button>
@@ -103,24 +103,36 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu Fullscreen Overlay */}
       {isMobile && menuOpen && (
         <div
-          className="fixed inset-0 z-40 flex flex-col items-center justify-center gap-2"
-          style={{ backgroundColor: 'var(--bg-primary)' }}
+          className="fixed inset-0 z-40 flex flex-col items-center justify-center gap-3 px-6"
+          style={{
+            backgroundColor: 'var(--navbar-bg)',
+            backdropFilter: 'blur(20px)',
+            WebkitBackdropFilter: 'blur(20px)',
+          }}
         >
+          {/* Ambient Glow */}
+          <div
+            className="pointer-events-none absolute left-1/2 top-1/2 h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full blur-[100px]"
+            style={{ backgroundColor: 'var(--glow)', opacity: 0.3 }}
+          />
+
           {NAV_ITEMS.map((item, i) => {
             const active = activeSection === item.id;
             return (
               <button
                 key={item.id}
                 onClick={() => handleNavClick(item.id)}
-                className="text-2xl font-bold transition-all duration-300"
+                className="w-full max-w-xs rounded-2xl py-3 px-4 text-center text-xl font-bold transition-all duration-300 active:scale-95"
                 style={{
                   color: active ? 'var(--accent)' : 'var(--text-primary)',
+                  backgroundColor: active ? 'var(--bg-card)' : 'transparent',
+                  border: active ? '1px solid var(--border)' : '1px solid transparent',
                   opacity: menuOpen ? 1 : 0,
                   transform: `translateY(${menuOpen ? 0 : 20}px)`,
-                  transitionDelay: `${i * 50}ms`,
+                  transitionDelay: `${i * 40}ms`,
                 }}
               >
                 {item.label}

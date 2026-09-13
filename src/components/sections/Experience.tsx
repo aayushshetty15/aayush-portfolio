@@ -9,7 +9,7 @@ export default function Experience() {
   return (
     <section
       id="experience"
-      className="relative py-28 px-6 lg:px-10"
+      className="relative py-16 sm:py-24 md:py-28 px-4 sm:px-6 lg:px-10 overflow-hidden"
       style={{ backgroundColor: 'var(--bg-secondary)' }}
     >
       <div className="mx-auto max-w-4xl">
@@ -22,7 +22,7 @@ export default function Experience() {
         <div className="relative" ref={lineRef}>
           {/* Timeline line */}
           <div
-            className="absolute left-4 top-0 bottom-0 w-[2px] md:left-1/2 md:-translate-x-1/2"
+            className="absolute left-3.5 sm:left-4 top-0 bottom-0 w-[2px] md:left-1/2 md:-translate-x-1/2"
             style={{ backgroundColor: 'var(--border)' }}
           >
             <div
@@ -36,7 +36,7 @@ export default function Experience() {
           </div>
 
           {/* Timeline items */}
-          <div className="space-y-12">
+          <div className="space-y-8 sm:space-y-12">
             {EXPERIENCE.map((exp, i) => (
               <RevealWrapper
                 key={exp.role}
@@ -46,9 +46,9 @@ export default function Experience() {
               >
                 <div className={`flex flex-col gap-4 md:flex-row md:items-center ${i % 2 === 0 ? '' : 'md:flex-row-reverse'}`}>
                   {/* Dot */}
-                  <div className="absolute left-4 top-2 -translate-x-1/2 md:left-1/2">
+                  <div className="absolute left-3.5 sm:left-4 top-2 -translate-x-1/2 md:left-1/2">
                     <div
-                      className="flex h-4 w-4 items-center justify-center rounded-full"
+                      className="flex h-3.5 w-3.5 sm:h-4 sm:w-4 items-center justify-center rounded-full"
                       style={{
                         background: 'var(--accent)',
                         boxShadow: '0 0 15px var(--glow)',
@@ -57,8 +57,8 @@ export default function Experience() {
                   </div>
 
                   {/* Content */}
-                  <div className={`ml-12 md:ml-0 md:w-1/2 ${i % 2 === 0 ? 'md:pr-12 md:text-right' : 'md:pl-12'}`}>
-                    <div className="rounded-2xl border border-themed bg-card p-6">
+                  <div className={`ml-8 sm:ml-12 md:ml-0 md:w-1/2 ${i % 2 === 0 ? 'md:pr-12 md:text-right' : 'md:pl-12'}`}>
+                    <div className="rounded-2xl border border-themed bg-card p-4 sm:p-6">
                       <div className={`mb-2 flex items-center gap-2 ${i % 2 === 0 ? 'md:justify-end' : ''}`}>
                         <Briefcase className="h-4 w-4 text-accent" style={{ color: 'var(--accent)' }} />
                         <span className="text-xs font-medium text-secondary" style={{ color: 'var(--text-secondary)' }}>

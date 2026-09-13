@@ -6,7 +6,7 @@ export default function Projects() {
   return (
     <section
       id="projects"
-      className="relative py-28 px-6 lg:px-10"
+      className="relative py-16 sm:py-24 md:py-28 px-4 sm:px-6 lg:px-10 overflow-hidden"
       style={{ backgroundColor: 'var(--bg-primary)' }}
     >
       {/* Ambient glow */}
@@ -27,11 +27,11 @@ export default function Projects() {
           subtitle="A selection of products I've built, shipped, and scaled."
         />
 
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-5 md:gap-6 md:grid-cols-2">
           {PROJECTS.map((project, i) => (
             <RevealWrapper key={project.title} delay={i * 150} direction={i % 2 === 0 ? 'left' : 'right'}>
               <div
-                className="group relative h-full overflow-hidden rounded-2xl border border-themed bg-card p-8 transition-all duration-300 hover:-translate-y-1"
+                className="group relative h-full overflow-hidden rounded-2xl border border-themed bg-card p-5 sm:p-6 md:p-8 transition-all duration-300 hover:-translate-y-1"
                 style={{ boxShadow: '0 0 0 1px var(--border)' }}
               >
                 {/* Hover glow */}
