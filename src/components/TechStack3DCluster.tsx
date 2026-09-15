@@ -304,8 +304,8 @@ export default function TechStack3DCluster() {
       animId = requestAnimationFrame(animate);
       const elapsed = clock.getElapsedTime();
 
-      // Gentle cluster rotation
-      if (!isDragging) {
+      // Gentle cluster rotation when user is not actively interacting
+      if (!isRotatingCluster && !isDraggingSphere) {
         rotVelocityY += (0.0018 - rotVelocityY) * 0.03;
         rotVelocityX *= 0.92;
       }
