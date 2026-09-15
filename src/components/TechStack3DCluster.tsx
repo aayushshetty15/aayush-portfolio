@@ -20,6 +20,7 @@ interface SphereBody {
 export default function TechStack3DCluster() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [hoveredSkillName, setHoveredSkillName] = useState<string | null>(null);
+  const hoverTimeoutRef = useRef<number | null>(null);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -161,9 +162,56 @@ export default function TechStack3DCluster() {
     let rotVelocityY = 0.002; // Soft ambient spin
     let hoveredBody: SphereBody | null = null;
 
+    let pointerDownPos = { x: 0, y: 0 };
+
     const handlePointerDown = (e: PointerEvent) => {
       isDragging = true;
       prevScreenPos = { x: e.clientX, y: e.clientY };
+      pointerDownPos = { x: e.clientX, y: e.clientY };
+
+      const rect = container.getBoundingClientRect();
+      const nx = ((e.clientX - rect.left) / width) * 2 - 1;
+      const ny = -((e.clientY - rect.top) / height) * 2 + 1;
+
+      mouse.x = nx;
+      mouse.y = ny;
+
+      // Project into 3D world space
+      prevMouseWorld.copy(mouseWorld);
+      raycaster.setFromCamera(mouse, camera);
+      raycaster.ray.intersectPlane(mousePlane, mouseWorld);
+
+      // Raycast against spheres to check if tapped directly
+      const intersects = raycaster.intersectObjects(sphereBodies.map((b) => b.mesh));
+
+      if (intersects.length > 0) {
+        const hitMesh = intersects[0].object as THREE.Mesh;
+        const hitBody = sphereBodies.find((b) => b.mesh === hitMesh);
+
+        if (hitBody) {
+          if (hitBody.skill) {
+            setHoveredSkillName(hitBody.skill.name);
+            if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
+            hoverTimeoutRef.current = window.setTimeout(() => {
+              setHoveredSkillName(null);
+            }, 2200);
+          }
+
+          // Calculate outward push direction from tap point
+          const localMouse = mouseWorld.clone().applyAxisAngle(new THREE.Vector3(0, 1, 0), -clusterGroup.rotation.y);
+          const pushDir = hitBody.pos.clone().sub(localMouse);
+          if (pushDir.lengthSq() < 0.001) {
+            pushDir.set((Math.random() - 0.5) * 0.2, (Math.random() - 0.5) * 0.2, -0.1);
+          }
+          pushDir.normalize();
+
+          // Physical tap impulse: moves sphere slightly so it collides with neighboring spheres
+          const impulseStrength = isMobile ? 0.08 : 0.065;
+          hitBody.vel.x += pushDir.x * impulseStrength + (Math.random() - 0.5) * 0.02;
+          hitBody.vel.y += pushDir.y * impulseStrength + (Math.random() - 0.5) * 0.02;
+          hitBody.vel.z -= 0.04; // depth nudge into neighbors behind
+        }
+      }
     };
 
     const handlePointerMove = (e: PointerEvent) => {
@@ -187,8 +235,30 @@ export default function TechStack3DCluster() {
         // Drag to rotate cluster
         rotVelocityY = dx * 0.005;
         rotVelocityX = dy * 0.005;
+
+        // Also check if dragging across spheres on touch screens to nudge them
+        const intersects = raycaster.intersectObjects(sphereBodies.map((b) => b.mesh));
+        if (intersects.length > 0) {
+          const hitMesh = intersects[0].object as THREE.Mesh;
+          const hitBody = sphereBodies.find((b) => b.mesh === hitMesh);
+          if (hitBody && hitBody !== hoveredBody) {
+            hoveredBody = hitBody;
+            if (hitBody.skill) {
+              setHoveredSkillName(hitBody.skill.name);
+            }
+            const mouseDelta = mouseWorld.clone().sub(prevMouseWorld);
+            const moveSpeed = mouseDelta.length();
+            const pushMagnitude = Math.min(moveSpeed * 1.5, 0.06) + 0.02;
+            const pushDir = mouseDelta.clone().normalize();
+            const localPush = pushDir.applyAxisAngle(new THREE.Vector3(0, 1, 0), -clusterGroup.rotation.y);
+
+            hitBody.vel.x += localPush.x * pushMagnitude;
+            hitBody.vel.y += localPush.y * pushMagnitude;
+            hitBody.vel.z -= 0.02;
+          }
+        }
       } else {
-        // Raycast against spheres to detect which sphere is hovered
+        // Desktop hover: raycast against spheres to detect which sphere is hovered
         const intersects = raycaster.intersectObjects(sphereBodies.map((b) => b.mesh));
 
         if (intersects.length > 0) {
@@ -225,6 +295,7 @@ export default function TechStack3DCluster() {
 
     const handlePointerUp = () => {
       isDragging = false;
+      hoveredBody = null;
     };
 
     const handlePointerLeave = () => {
@@ -393,6 +464,7 @@ export default function TechStack3DCluster() {
       window.removeEventListener('pointerup', handlePointerUp);
       container.removeEventListener('pointerleave', handlePointerLeave);
       cancelAnimationFrame(animId);
+      if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
 
       textures.forEach((t) => t.dispose());
       sphereGeo.dispose();
