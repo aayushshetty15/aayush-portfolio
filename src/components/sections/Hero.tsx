@@ -2,14 +2,12 @@ import { useEffect, useState } from 'react';
 import { ArrowDown, Download, MousePointerClick, Sparkles } from 'lucide-react';
 import { useScrollY } from '@/hooks/useParallax';
 import { usePrefersReducedMotion } from '@/hooks/useMediaQuery';
-import { useTheme } from '@/context/ThemeContext';
+
 
 export default function Hero() {
   const scrollY = useScrollY();
   const reducedMotion = usePrefersReducedMotion();
   const [mounted, setMounted] = useState(false);
-  const { theme } = useTheme();
-  const isDark = theme === 'dark';
 
   useEffect(() => {
     setMounted(true);
@@ -110,7 +108,7 @@ export default function Hero() {
         }}
       >
         <img
-            src={isDark ? '/profile.png' : ''}
+            src="/profile.png"
             alt="Aayush Shetty"
             className="
               h-[340px] w-auto object-contain

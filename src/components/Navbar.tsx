@@ -4,7 +4,6 @@ import { NAV_ITEMS } from '@/data/portfolio';
 import { useScrollSpy } from '@/hooks/useScrollSpy';
 import { useScrollY } from '@/hooks/useParallax';
 import { useIsMobile } from '@/hooks/useMediaQuery';
-import ThemeToggle from './ThemeToggle';
 
 const SECTION_IDS = NAV_ITEMS.map((n) => n.id);
 
@@ -81,16 +80,12 @@ export default function Navbar() {
                   </button>
                 );
               })}
-              <div className="ml-3">
-                <ThemeToggle />
-              </div>
             </div>
           )}
 
           {/* Mobile controls */}
           {isMobile && (
-            <div className="flex items-center gap-2.5">
-              <ThemeToggle />
+            <div className="flex items-center">
               <button
                 onClick={() => setMenuOpen(!menuOpen)}
                 aria-label="Toggle menu"

@@ -2,7 +2,8 @@
 @import "tailwindcss";
 @layer base {
   :root {
-    /* Dark theme (default) */
+    /* Dark theme */
+    color-scheme: dark;
     --bg-primary: #050505;
     --bg-secondary: #0B0B0B;
     --bg-card: rgba(18, 18, 18, 0.70);
@@ -14,20 +15,6 @@
     --glow: rgba(229, 9, 20, 0.20);
     --navbar-bg: rgba(5, 5, 5, 0.80);
     --glass: rgba(18, 18, 18, 0.60);
-  }
-
-  :root.light {
-    --bg-primary: #F7F7F7;
-    --bg-secondary: #FFFFFF;
-    --bg-card: rgba(255, 255, 255, 0.75);
-    --text-primary: #111111;
-    --text-secondary: #555555;
-    --accent: #C90012;
-    --accent-bright: #E50914;
-    --border: rgba(0, 0, 0, 0.10);
-    --glow: rgba(229, 9, 20, 0.12);
-    --navbar-bg: rgba(247, 247, 247, 0.80);
-    --glass: rgba(255, 255, 255, 0.60);
   }
 
   * {

@@ -1,4 +1,4 @@
-import { ThemeProvider } from '@/context/ThemeContext';
+import { useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import ScrollProgress from '@/components/ScrollProgress';
 import BackToTop from '@/components/BackToTop';
@@ -12,24 +12,32 @@ import Education from '@/components/sections/Education';
 import Contact from '@/components/sections/Contact';
 
 function App() {
+  useEffect(() => {
+    document.documentElement.classList.add('dark');
+    document.documentElement.classList.remove('light');
+    try {
+      localStorage.removeItem('portfolio-theme');
+    } catch {
+      // ignore storage access errors
+    }
+  }, []);
+
   return (
-    <ThemeProvider>
-      <div className="relative min-h-screen" style={{ backgroundColor: 'var(--bg-primary)' }}>
-        <ScrollProgress />
-        <Navbar />
-        <main>
-          <Hero />
-          <About />
-          <Skills />
-          <Experience />
-          <Projects />
-          <Statistics />
-          <Education />
-          <Contact />
-        </main>
-        <BackToTop />
-      </div>
-    </ThemeProvider>
+    <div className="relative min-h-screen" style={{ backgroundColor: 'var(--bg-primary)' }}>
+      <ScrollProgress />
+      <Navbar />
+      <main>
+        <Hero />
+        <About />
+        <Skills />
+        <Experience />
+        <Projects />
+        <Statistics />
+        <Education />
+        <Contact />
+      </main>
+      <BackToTop />
+    </div>
   );
 }
 
