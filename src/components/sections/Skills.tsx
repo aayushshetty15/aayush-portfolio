@@ -21,7 +21,7 @@ export default function Skills() {
         <SectionHeading
           eyebrow="Skills & Technologies"
           title="Technical Arsenal"
-          subtitle="Interactive 3D physics cluster of modern tools, languages, and frameworks. Hover over any sphere to push and collide neighboring spheres in real time."
+          subtitle="Interactive 3D physics cluster of modern tools, languages, and frameworks. Drag any sphere into the cluster to collide and disperse them in real time."
         />
 
         <RevealWrapper delay={100} direction="up">

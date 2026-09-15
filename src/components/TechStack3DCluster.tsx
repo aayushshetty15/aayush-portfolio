@@ -156,18 +156,17 @@ export default function TechStack3DCluster() {
     const mouseWorld = new THREE.Vector3();
     const mousePlane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
 
-    let isDragging = false;
+    let isDraggingSphere = false;
+    let isRotatingCluster = false;
+    let draggedBody: SphereBody | null = null;
+    const dragOffset = new THREE.Vector3();
     let prevScreenPos = { x: 0, y: 0 };
     let rotVelocityX = 0;
     let rotVelocityY = 0.002; // Soft ambient spin
     let hoveredBody: SphereBody | null = null;
 
-    let pointerDownPos = { x: 0, y: 0 };
-
     const handlePointerDown = (e: PointerEvent) => {
-      isDragging = true;
       prevScreenPos = { x: e.clientX, y: e.clientY };
-      pointerDownPos = { x: e.clientX, y: e.clientY };
 
       const rect = container.getBoundingClientRect();
       const nx = ((e.clientX - rect.left) / width) * 2 - 1;
@@ -181,7 +180,7 @@ export default function TechStack3DCluster() {
       raycaster.setFromCamera(mouse, camera);
       raycaster.ray.intersectPlane(mousePlane, mouseWorld);
 
-      // Raycast against spheres to check if tapped directly
+      // Raycast against spheres to check if tapped/dragged directly
       const intersects = raycaster.intersectObjects(sphereBodies.map((b) => b.mesh));
 
       if (intersects.length > 0) {
@@ -189,29 +188,31 @@ export default function TechStack3DCluster() {
         const hitBody = sphereBodies.find((b) => b.mesh === hitMesh);
 
         if (hitBody) {
+          draggedBody = hitBody;
+          isDraggingSphere = true;
+          isRotatingCluster = false;
+          container.style.cursor = 'grabbing';
+
           if (hitBody.skill) {
             setHoveredSkillName(hitBody.skill.name);
             if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
             hoverTimeoutRef.current = window.setTimeout(() => {
               setHoveredSkillName(null);
-            }, 2200);
+            }, 2500);
           }
 
-          // Calculate outward push direction from tap point
+          // Compute drag offset in local cluster space
           const localMouse = mouseWorld.clone().applyAxisAngle(new THREE.Vector3(0, 1, 0), -clusterGroup.rotation.y);
-          const pushDir = hitBody.pos.clone().sub(localMouse);
-          if (pushDir.lengthSq() < 0.001) {
-            pushDir.set((Math.random() - 0.5) * 0.2, (Math.random() - 0.5) * 0.2, -0.1);
-          }
-          pushDir.normalize();
-
-          // Physical tap impulse: moves sphere slightly so it collides with neighboring spheres
-          const impulseStrength = isMobile ? 0.08 : 0.065;
-          hitBody.vel.x += pushDir.x * impulseStrength + (Math.random() - 0.5) * 0.02;
-          hitBody.vel.y += pushDir.y * impulseStrength + (Math.random() - 0.5) * 0.02;
-          hitBody.vel.z -= 0.04; // depth nudge into neighbors behind
+          dragOffset.copy(hitBody.pos).sub(localMouse);
+          return;
         }
       }
+
+      // Touched background: rotate cluster
+      draggedBody = null;
+      isDraggingSphere = false;
+      isRotatingCluster = true;
+      container.style.cursor = 'grab';
     };
 
     const handlePointerMove = (e: PointerEvent) => {
@@ -231,78 +232,63 @@ export default function TechStack3DCluster() {
       const dy = e.clientY - prevScreenPos.y;
       prevScreenPos = { x: e.clientX, y: e.clientY };
 
-      if (isDragging) {
-        // Drag to rotate cluster
+      if (isDraggingSphere && draggedBody) {
+        // Drag the selected sphere in local cluster space
+        const localMouse = mouseWorld.clone().applyAxisAngle(new THREE.Vector3(0, 1, 0), -clusterGroup.rotation.y);
+        const targetPos = localMouse.add(dragOffset);
+        targetPos.z = THREE.MathUtils.clamp(targetPos.z, -1.8, 1.8);
+
+        const prevPos = draggedBody.pos.clone();
+        draggedBody.pos.lerp(targetPos, 0.42);
+        draggedBody.vel.copy(draggedBody.pos).sub(prevPos);
+      } else if (isRotatingCluster) {
+        // Drag background to rotate cluster
         rotVelocityY = dx * 0.005;
         rotVelocityX = dy * 0.005;
-
-        // Also check if dragging across spheres on touch screens to nudge them
-        const intersects = raycaster.intersectObjects(sphereBodies.map((b) => b.mesh));
-        if (intersects.length > 0) {
-          const hitMesh = intersects[0].object as THREE.Mesh;
-          const hitBody = sphereBodies.find((b) => b.mesh === hitMesh);
-          if (hitBody && hitBody !== hoveredBody) {
-            hoveredBody = hitBody;
-            if (hitBody.skill) {
-              setHoveredSkillName(hitBody.skill.name);
-            }
-            const mouseDelta = mouseWorld.clone().sub(prevMouseWorld);
-            const moveSpeed = mouseDelta.length();
-            const pushMagnitude = Math.min(moveSpeed * 1.5, 0.06) + 0.02;
-            const pushDir = mouseDelta.clone().normalize();
-            const localPush = pushDir.applyAxisAngle(new THREE.Vector3(0, 1, 0), -clusterGroup.rotation.y);
-
-            hitBody.vel.x += localPush.x * pushMagnitude;
-            hitBody.vel.y += localPush.y * pushMagnitude;
-            hitBody.vel.z -= 0.02;
-          }
-        }
       } else {
-        // Desktop hover: raycast against spheres to detect which sphere is hovered
+        // Desktop hover detection
         const intersects = raycaster.intersectObjects(sphereBodies.map((b) => b.mesh));
-
         if (intersects.length > 0) {
           const hitMesh = intersects[0].object as THREE.Mesh;
           const hitBody = sphereBodies.find((b) => b.mesh === hitMesh);
-
           if (hitBody) {
             hoveredBody = hitBody;
             if (hitBody.skill) {
               setHoveredSkillName(hitBody.skill.name);
             }
-
-            // Calculate mouse motion in 3D world space
-            const mouseDelta = mouseWorld.clone().sub(prevMouseWorld);
-            const moveSpeed = mouseDelta.length();
-
-            // When mouse is on top of this sphere: move it slightly in the direction of the mouse motion
-            const pushMagnitude = Math.min(moveSpeed * 1.5, 0.08) + 0.025;
-            const pushDir = mouseDelta.clone().normalize();
-
-            // Invert cluster rotation to apply impulse in local sphere space
-            const localPush = pushDir.applyAxisAngle(new THREE.Vector3(0, 1, 0), -clusterGroup.rotation.y);
-
-            hitBody.vel.x += localPush.x * pushMagnitude;
-            hitBody.vel.y += localPush.y * pushMagnitude;
-            hitBody.vel.z -= 0.02; // slight depth push so it collides backwards with neighbors
+            container.style.cursor = 'grab';
           }
         } else {
           hoveredBody = null;
           setHoveredSkillName(null);
+          container.style.cursor = 'default';
         }
       }
     };
 
     const handlePointerUp = () => {
-      isDragging = false;
+      if (draggedBody) {
+        // Fling momentum on release
+        draggedBody.vel.multiplyScalar(1.2);
+        draggedBody = null;
+      }
+      isDraggingSphere = false;
+      isRotatingCluster = false;
       hoveredBody = null;
+      container.style.cursor = 'default';
     };
 
     const handlePointerLeave = () => {
-      isDragging = false;
+      if (draggedBody) {
+        draggedBody.vel.multiplyScalar(1.2);
+        draggedBody = null;
+      }
+      isDraggingSphere = false;
+      isRotatingCluster = false;
       hoveredBody = null;
       setHoveredSkillName(null);
       mouse.set(-9999, -9999);
+      container.style.cursor = 'default';
     };
 
     container.addEventListener('pointerdown', handlePointerDown);
@@ -336,42 +322,32 @@ export default function TechStack3DCluster() {
 
       const n = sphereBodies.length;
 
-      // 1. Individual sphere physics: slight mouse push + spring return to origPos
+      // 1. Individual sphere physics: spring return to origPos
       for (let i = 0; i < n; i++) {
         const b = sphereBodies[i];
+
+        // While this sphere is actively being dragged by user, don't apply return spring
+        if (b === draggedBody) {
+          continue;
+        }
 
         // Subtle zero-g breath
         const breath = Math.sin(elapsed * 1.5 + i * 0.8) * 0.0012;
         b.vel.y += breath;
 
         // RESTORATION SPRING: pulls sphere back to its exact origPos after a few seconds
-        const returnSpring = 0.032;
+        const returnSpring = 0.035;
         b.vel.x += (b.origPos.x - b.pos.x) * returnSpring;
         b.vel.y += (b.origPos.y - b.pos.y) * returnSpring;
         b.vel.z += (b.origPos.z - b.pos.z) * returnSpring;
 
-        // Proximity nudge if mouse is right over this sphere
-        if (mouse.x > -9000) {
-          const localMouse = mouseWorld.clone().applyAxisAngle(new THREE.Vector3(0, 1, 0), -clusterGroup.rotation.y);
-          const dx = b.pos.x - localMouse.x;
-          const dy = b.pos.y - localMouse.y;
-          const dist2D = Math.sqrt(dx * dx + dy * dy);
-
-          // If mouse is within the sphere's bounds, nudge it slightly
-          if (dist2D < b.radius * 1.15 && dist2D > 0.01) {
-            const nudgeForce = (1 - dist2D / (b.radius * 1.15)) * 0.022;
-            b.vel.x += (dx / dist2D) * nudgeForce;
-            b.vel.y += (dy / dist2D) * nudgeForce;
-          }
-        }
-
         // Smooth physical damping
-        b.vel.multiplyScalar(0.915);
+        b.vel.multiplyScalar(0.92);
         b.pos.add(b.vel);
       }
 
       // 2. PAIRWISE COLLISION RESOLUTION
-      // When a sphere moves slightly, it collides with and pushes its neighboring spheres
+      // When a sphere is dragged into others, it forcefully pushes & disperses them
       const iterations = 4;
       for (let iter = 0; iter < iterations; iter++) {
         for (let i = 0; i < n; i++) {
@@ -387,31 +363,53 @@ export default function TechStack3DCluster() {
 
             if (distSq < minDist * minDist && distSq > 0.00001) {
               const dist = Math.sqrt(distSq);
-              const overlap = (minDist - dist) * 0.5;
+              const overlap = minDist - dist;
               const nx = dx / dist;
               const ny = dy / dist;
               const nz = dz / dist;
 
-              // Push both spheres apart so they don't intersect
-              b1.pos.x -= nx * overlap;
-              b1.pos.y -= ny * overlap;
-              b1.pos.z -= nz * overlap;
+              if (b1 === draggedBody) {
+                // b1 is held by user: knocks b2 away to disperse it
+                b2.pos.x += nx * overlap;
+                b2.pos.y += ny * overlap;
+                b2.pos.z += nz * overlap;
 
-              b2.pos.x += nx * overlap;
-              b2.pos.y += ny * overlap;
-              b2.pos.z += nz * overlap;
+                const hitSpeed = Math.max(b1.vel.length(), 0.045);
+                b2.vel.x += nx * hitSpeed * 1.5;
+                b2.vel.y += ny * hitSpeed * 1.5;
+                b2.vel.z += nz * hitSpeed * 1.5;
+              } else if (b2 === draggedBody) {
+                // b2 is held by user: knocks b1 away to disperse it
+                b1.pos.x -= nx * overlap;
+                b1.pos.y -= ny * overlap;
+                b1.pos.z -= nz * overlap;
 
-              // Momentum transfer / elastic collision bump
-              const relVel = (b2.vel.x - b1.vel.x) * nx + (b2.vel.y - b1.vel.y) * ny + (b2.vel.z - b1.vel.z) * nz;
-              if (relVel < 0) {
-                const impulse = relVel * 0.55;
-                b1.vel.x += nx * impulse;
-                b1.vel.y += ny * impulse;
-                b1.vel.z += nz * impulse;
+                const hitSpeed = Math.max(b2.vel.length(), 0.045);
+                b1.vel.x -= nx * hitSpeed * 1.5;
+                b1.vel.y -= ny * hitSpeed * 1.5;
+                b1.vel.z -= nz * hitSpeed * 1.5;
+              } else {
+                // Collision between two free spheres
+                const halfOverlap = overlap * 0.5;
+                b1.pos.x -= nx * halfOverlap;
+                b1.pos.y -= ny * halfOverlap;
+                b1.pos.z -= nz * halfOverlap;
 
-                b2.vel.x -= nx * impulse;
-                b2.vel.y -= ny * impulse;
-                b2.vel.z -= nz * impulse;
+                b2.pos.x += nx * halfOverlap;
+                b2.pos.y += ny * halfOverlap;
+                b2.pos.z += nz * halfOverlap;
+
+                const relVel = (b2.vel.x - b1.vel.x) * nx + (b2.vel.y - b1.vel.y) * ny + (b2.vel.z - b1.vel.z) * nz;
+                if (relVel < 0) {
+                  const impulse = relVel * 0.6;
+                  b1.vel.x += nx * impulse;
+                  b1.vel.y += ny * impulse;
+                  b1.vel.z += nz * impulse;
+
+                  b2.vel.x -= nx * impulse;
+                  b2.vel.y -= ny * impulse;
+                  b2.vel.z -= nz * impulse;
+                }
               }
             }
           }
