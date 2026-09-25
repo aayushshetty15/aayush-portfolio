@@ -23,11 +23,14 @@ function App() {
   }, []);
 
   return (
-    <div className="relative min-h-screen" style={{ backgroundColor: 'var(--bg-primary)' }}>
+    <div
+      className="relative min-h-screen"
+      style={{ backgroundColor: 'var(--bg-primary)' }}
+    >
       <ScrollProgress />
       <Navbar />
       <main>
-        <Hero />
+        <Hero isLoaded={true} />
         <About />
         <Skills />
         <Experience />

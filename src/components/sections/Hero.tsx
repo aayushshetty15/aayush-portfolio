@@ -4,14 +4,20 @@ import { useScrollY } from '@/hooks/useParallax';
 import { usePrefersReducedMotion } from '@/hooks/useMediaQuery';
 
 
-export default function Hero() {
+interface HeroProps {
+  isLoaded?: boolean;
+}
+
+export default function Hero({ isLoaded = true }: HeroProps) {
   const scrollY = useScrollY();
   const reducedMotion = usePrefersReducedMotion();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
-  }, []);
+    if (isLoaded) {
+      setMounted(true);
+    }
+  }, [isLoaded]);
 
   const parallaxOffset = reducedMotion ? 0 : Math.min(scrollY * 0.4, 300);
   const contentOffset = reducedMotion ? 0 : Math.min(scrollY * 0.15, 100);
@@ -204,7 +210,7 @@ export default function Hero() {
           >
             <a
               href="/Aayush_Shetty_Resume.pdf"
-              download
+              download="Aayush_Shetty_Resume.pdf"
               className="group flex items-center justify-center gap-2.5 rounded-full px-7 py-3 sm:px-8 sm:py-3.5 text-sm sm:text-base font-semibold text-white transition-all duration-300 hover:scale-105"
               style={{
                 background: 'linear-gradient(135deg, var(--accent), var(--accent-bright))',
