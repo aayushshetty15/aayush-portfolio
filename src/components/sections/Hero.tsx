@@ -183,7 +183,7 @@ export default function Hero({ isLoaded = true }: HeroProps) {
               transition: 'all 800ms ease-out 200ms',
             }}
           >
-            Information Science & Engineering Student
+            Enthusiastic & Dedicated Information Science and Engineering Student
           </p>
 
           {/* Description */}
@@ -196,7 +196,7 @@ export default function Hero({ isLoaded = true }: HeroProps) {
               transition: 'all 800ms ease-out 300ms',
             }}
           >
-            Motivated and detail-oriented Information Science and Engineering student with hands-on experience in full-stack web development and a research internship focused on computer vision and deep learning. Passionate about building responsive, scalable web applications, writing clean and maintainable code, and continuously learning modern technologies.
+            A recent graduate in Information Science Engineering with hands-on experience in full-stack web development. Proficient in the MERN stack, REST APIs, database management, and secure authentication, with a strong focus on problem-solving and building scalable web applications. Developed multiple academic and personal projects using React, Node.js, Express.js, and MongoDB.
           </p>
 
           {/* CTA */}

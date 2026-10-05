@@ -17,7 +17,7 @@ function StatCard({ value, suffix, label, delay }: { value: number; suffix: stri
       }}
     >
       <div className="text-4xl font-extrabold text-gradient sm:text-5xl md:text-6xl">
-        {count}
+        {count.toLocaleString()}
         <span>{suffix}</span>
       </div>
       <p className="mt-2 text-xs sm:text-sm font-medium uppercase tracking-wider text-secondary" style={{ color: 'var(--text-secondary)' }}>

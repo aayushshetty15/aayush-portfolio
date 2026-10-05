@@ -5,24 +5,25 @@ export interface TechSkillItem {
   category: string;
   level: number;
   color: string;
-  iconType: 'ts' | 'react' | 'next' | 'express' | 'python' | 'tailwind' | 'node' | 'js' | 'mongodb' | 'firebase' | 'git' | 'html' | 'css' | 'php' | 'generic';
+  iconType: 'ts' | 'react' | 'next' | 'express' | 'python' | 'tailwind' | 'node' | 'js' | 'mongodb' | 'firebase' | 'git' | 'html' | 'css' | 'php' | 'mysql' | 'generic';
 }
 
 export const TECH_SKILLS: TechSkillItem[] = [
   { name: 'TypeScript', category: 'Programming Languages', level: 90, color: '#3178C6', iconType: 'ts' },
-  { name: 'React', category: 'Frameworks & Libraries', level: 88, color: '#61DAFB', iconType: 'react' },
+  { name: 'React', category: 'Frameworks & Libraries', level: 90, color: '#61DAFB', iconType: 'react' },
   { name: 'Next.js', category: 'Frameworks & Libraries', level: 85, color: '#000000', iconType: 'next' },
-  { name: 'Express.js', category: 'Frameworks & Libraries', level: 84, color: '#252525', iconType: 'express' },
-  { name: 'Node.js', category: 'Frameworks & Libraries', level: 86, color: '#68A063', iconType: 'node' },
-  { name: 'Python', category: 'Programming Languages', level: 76, color: '#3776AB', iconType: 'python' },
-  { name: 'JavaScript', category: 'Programming Languages', level: 88, color: '#F7DF1E', iconType: 'js' },
+  { name: 'Express.js', category: 'Frameworks & Libraries', level: 86, color: '#252525', iconType: 'express' },
+  { name: 'Node.js', category: 'Frameworks & Libraries', level: 88, color: '#68A063', iconType: 'node' },
+  { name: 'Python', category: 'Programming Languages', level: 80, color: '#3776AB', iconType: 'python' },
+  { name: 'JavaScript', category: 'Programming Languages', level: 90, color: '#F7DF1E', iconType: 'js' },
   { name: 'Tailwind CSS', category: 'Frameworks & Libraries', level: 85, color: '#38BDF8', iconType: 'tailwind' },
-  { name: 'MongoDB', category: 'Databases', level: 86, color: '#47A248', iconType: 'mongodb' },
-  { name: 'Firebase', category: 'Databases', level: 72, color: '#FFCA28', iconType: 'firebase' },
-  { name: 'Git & GitHub', category: 'Tools & Platforms', level: 84, color: '#F05032', iconType: 'git' },
-  { name: 'HTML5', category: 'Programming Languages', level: 94, color: '#E34F26', iconType: 'html' },
+  { name: 'MongoDB', category: 'Databases', level: 88, color: '#47A248', iconType: 'mongodb' },
+  { name: 'MySQL', category: 'Databases', level: 85, color: '#00758F', iconType: 'mysql' },
+  { name: 'Firebase', category: 'Databases', level: 75, color: '#FFCA28', iconType: 'firebase' },
+  { name: 'Git & GitHub', category: 'Tools & Platforms', level: 88, color: '#F05032', iconType: 'git' },
+  { name: 'HTML5', category: 'Programming Languages', level: 95, color: '#E34F26', iconType: 'html' },
   { name: 'CSS3', category: 'Programming Languages', level: 90, color: '#1572B6', iconType: 'css' },
-  { name: 'PHP', category: 'Programming Languages', level: 68, color: '#777BB4', iconType: 'php' },
+  { name: 'PHP', category: 'Programming Languages', level: 82, color: '#777BB4', iconType: 'php' },
 ];
 
 /**
@@ -369,6 +370,27 @@ function drawLogoAt(
       ctx.fillStyle = '#0369a1';
       ctx.font = `700 ${size * 0.18}px "Inter", sans-serif`;
       ctx.fillText('CSS3', 0, size * 0.52);
+      break;
+    }
+
+    case 'mysql': {
+      // MySQL logo with stylized dolphin arc
+      ctx.fillStyle = '#00758F';
+      drawRoundedRect(ctx, -size * 0.44, -size * 0.44, size * 0.88, size * 0.88, size * 0.18);
+      ctx.fill();
+
+      // Dolphin arc crest in orange
+      ctx.strokeStyle = '#F29111';
+      ctx.lineWidth = 10;
+      ctx.lineCap = 'round';
+      ctx.beginPath();
+      ctx.arc(size * 0.05, -size * 0.06, size * 0.22, Math.PI * 0.8, Math.PI * 1.85);
+      ctx.stroke();
+
+      ctx.fillStyle = '#FFFFFF';
+      ctx.font = `900 ${size * 0.22}px "Inter", sans-serif`;
+      ctx.textAlign = 'center';
+      ctx.fillText('MySQL', 0, size * 0.26);
       break;
     }
 

@@ -8,70 +8,155 @@ export const NAV_ITEMS = [
   { id: 'contact', label: 'Contact' },
 ] as const;
 
-export const SKILLS = [
-  { name: 'React', level: 88, category: 'Frameworks & Libraries' },
-  { name: 'Express.js', level: 84, category: 'Frameworks & Libraries' },
-  { name: 'Node.js', level: 86, category: 'Frameworks & Libraries' },
-  { name: 'Tailwind CSS', level: 82, category: 'Frameworks & Libraries' },
-  { name: 'JavaScript', level: 88, category: 'Programming Languages' },
-  { name: 'Python', level: 76, category: 'Programming Languages' },
-  { name: 'PHP', level: 68, category: 'Programming Languages' },
-  { name: 'HTML5', level: 94, category: 'Programming Languages' },
+export interface SkillItem {
+  name: string;
+  level: number;
+  category: string;
+}
+
+export const SKILLS: SkillItem[] = [
+  // Frameworks & Libraries
+  { name: 'React', level: 90, category: 'Frameworks & Libraries' },
+  { name: 'Node.js', level: 88, category: 'Frameworks & Libraries' },
+  { name: 'Express.js', level: 86, category: 'Frameworks & Libraries' },
+  { name: 'Tailwind CSS', level: 85, category: 'Frameworks & Libraries' },
+
+  // Programming Languages
+  { name: 'JavaScript', level: 90, category: 'Programming Languages' },
+  { name: 'Python', level: 80, category: 'Programming Languages' },
+  { name: 'PHP', level: 82, category: 'Programming Languages' },
+  { name: 'HTML5', level: 95, category: 'Programming Languages' },
   { name: 'CSS3', level: 90, category: 'Programming Languages' },
-  { name: 'MongoDB', level: 86, category: 'Databases' },
-  { name: 'Firebase', level: 72, category: 'Databases' },
-  { name: 'Git & GitHub', level: 84, category: 'Tools & Platforms' },
+
+  // Databases
+  { name: 'MongoDB', level: 88, category: 'Databases' },
+  { name: 'MySQL', level: 85, category: 'Databases' },
+  { name: 'Firebase', level: 75, category: 'Databases' },
+
+  // Tools & Platforms
+  { name: 'Git', level: 88, category: 'Tools & Platforms' },
+  { name: 'GitHub', level: 88, category: 'Tools & Platforms' },
 ];
 
-export const EXPERIENCE = [
+export const SOFT_SKILLS = [
+  'Communication',
+  'Team Work',
+  'Problem Solving',
+  'Time Management',
+];
+
+export const SPOKEN_LANGUAGES = ['English', 'Hindi', 'Kannada'];
+
+export interface ExperienceItem {
+  role: string;
+  company: string;
+  location: string;
+  period: string;
+  type: string;
+  description: string;
+  achievements: string[];
+  technologies: string[];
+}
+
+export const EXPERIENCE: ExperienceItem[] = [
   {
-    role: 'Intern | Research Internship',
-    company: 'National Institute of Engineering and Technology',
-    period: 'Feb 2026 — May 2026',
-    description: 'Completed a 4-month research internship focused on AI-driven image understanding and model evaluation at the National Institute of Engineering and Technology, Surathkal.',
-    achievements: [
-      'Evaluated model performance on 9,000+ image-question pairs using Exact Match and other evaluation metrics',
-      'Preprocessed and quality-validated 9,000+ data samples for reliable model evaluation',
-      'Organized research datasets for experimentation and benchmarking',
-      'Streamlined dataset processing and evaluation workflows with Python and Git',
-    ],
-  },
-  {
-    role: 'Full Stack Developer Intern',
+    role: 'Full Stack Developer',
     company: 'Zephyr Technologies',
-    period: 'Aug 2026 - Nov 2026',
-    description: 'Worked on software development projects at Zephyr Technologies, gaining hands-on experience in application development, debugging, testing, and implementing practical software solutions.',
-
+    location: 'Mangalore, Karnataka',
+    period: 'Aug 2026 — Nov 2026',
+    type: 'Internship • On-site',
+    description: 'Worked on full-stack application development, building interactive components, improving system performance, and managing workflows using modern software development tools.',
     achievements: [
-    'Developed and enhanced application features based on project requirements',
-    'Implemented and tested software components to improve functionality and reliability',
-    'Debugged and resolved application issues to ensure smooth system performance',
-    'Collaborated with team members using Git and modern development tools to manage project workflows'
+      'Develop and enhance 5+ application features based on project requirements and user needs.',
+      'Implement and test 10+ software components to improve application functionality and reliability.',
+      'Debug and resolve 15+ application issues to maintain smooth system performance and reduce recurring errors.',
+      'Collaborate with team members using Git and modern development tools across 3+ development workflows.',
     ],
+    technologies: ['MongoDB', 'Express', 'React', 'Node.js', 'Tailwind CSS', 'PHP'],
+  },
+  {
+    role: 'Research Intern',
+    company: 'National Institute of Engineering and Technology',
+    location: 'Surathkal, Karnataka',
+    period: 'Feb 2026 — May 2026',
+    type: 'Internship • On-site',
+    description: 'Completed a 4-month research internship focused on AI-driven image understanding, dataset curation, quality evaluation, and benchmarking.',
+    achievements: [
+      'Completed a 4-month research internship focused on AI-driven image understanding and model evaluation.',
+      'Conducted performance evaluation of AI models using a dataset of 9,000+ image-question pairs and metrics including Exact Match (EM).',
+      'Performed data preprocessing, validation, and quality assessment on 9,000+ research samples to ensure consistency and reliability.',
+      'Contributed to research dataset curation, experimental analysis, and model benchmarking for image-understanding tasks.',
+      'Used Python and Git for research data analysis, preprocessing, and experiment management.',
+    ],
+    technologies: ['Python', 'Git', 'Data Preprocessing', 'Dataset Curation', 'AI Model Evaluation'],
   },
 ];
 
-export const PROJECTS = [
+export interface ProjectItem {
+  title: string;
+  subtitle: string;
+  type: string;
+  description: string;
+  bullets: string[];
+  tags: string[];
+  metric: string;
+  githubUrl: string;
+}
+
+export const PROJECTS: ProjectItem[] = [
   {
-    title: 'SmartHire — AI-Powered Recruitment Platform',
-    description: 'A full-stack recruitment platform for Recruiters and Job Seekers, with job posting, application management, secure authentication, role-based access control, 8+ RESTful API endpoints, and 5+ MongoDB collections.',
-    tags: ['React', 'Node.js', 'Express', 'MongoDB'],
-    metric: '10+ responsive pages | 100% protected routes',
+    title: 'FlowForge',
+    subtitle: 'Visual Workflow Automation Platform',
+    type: 'Individual Project',
+    description: 'A visual workflow automation platform supporting 4 node types (Webhook, Condition, HTTP, Notification), cycle-protected execution, 3-layer rate limiting, and comprehensive acceptance testing.',
+    bullets: [
+      'Built a visual workflow automation platform supporting 4 node types: Webhook, Condition, HTTP, and Notification.',
+      'Implemented a workflow engine with 50-step cycle protection and 30-second execution timeouts.',
+      'Added 3-layer rate limiting, JWT authentication, Zod validation, SSRF protection, and detailed execution auditing.',
+      'Developed 45 automated acceptance tests covering authentication, workflows, webhooks, branching, audit logs, and multi-tenant isolation.',
+    ],
+    tags: ['MongoDB', 'Express', 'React', 'Node.js', 'Tailwind CSS', 'JWT', 'Zod'],
+    metric: '45 Acceptance Tests | 50-Step Protection',
+    githubUrl: 'https://github.com/aayushshetty15',
   },
   {
-    title: 'MediCare',
-    description: 'A full-stack healthcare management system for Patients and Healthcare Providers, with appointment scheduling, patient records, prescriptions, medical information, 8+ RESTful API endpoints, and 8+ application modules.',
-    tags: ['React', 'Node.js', 'Express', 'MongoDB', 'Tailwind CSS'],
-    metric: '8+ modules | 8+ RESTful endpoints',
+    title: 'CarConnect',
+    subtitle: 'Online Used Car Marketplace',
+    type: 'Individual Project',
+    description: 'A multi-role marketplace with 70+ PHP files supporting authentication, listings, search, messaging, orders, and reviews with a 13-table MySQL database and analytics modules.',
+    bullets: [
+      'Built a 3-role marketplace with 70+ PHP files supporting authentication, listings, search, messaging, orders, and reviews.',
+      'Designed a 13-table MySQL database for users, vehicles, transactions, and marketplace operations.',
+      'Implemented 4 analytics modules for sales, vehicle views, conversion rates, and user activity.',
+      'Added OTP verification, RBAC, password hashing, prepared SQL queries, and admin listing approval for secure operations.',
+    ],
+    tags: ['PHP', 'HTML', 'CSS', 'MySQL', 'JavaScript'],
+    metric: '70+ PHP Files | 13-Table MySQL DB',
+    githubUrl: 'https://github.com/aayushshetty15',
+  },
+  {
+    title: 'LearnBridge',
+    subtitle: 'Learning Management Platform',
+    type: 'Individual Project',
+    description: 'A full-stack 2-role learning platform for Students and Instructors featuring dedicated dashboards, 43 REST APIs, Google OAuth, and learning progress analytics.',
+    bullets: [
+      'Built a 2-role learning platform for Students and Instructors with dedicated dashboards for course and learner management.',
+      'Developed 43 REST APIs for authentication, courses, enrollments, materials, messaging, profiles, and analytics.',
+      'Implemented JWT authentication, Google OAuth, bcrypt hashing, RBAC, course publishing, enrollments, and file uploads.',
+      'Added 4 analytics metrics to track enrollments, materials, messages, and learning progress.',
+    ],
+    tags: ['React.js', 'Node.js', 'Express.js', 'MongoDB', 'REST APIs', 'JWT', 'Tailwind CSS', 'Google OAuth'],
+    metric: '43 REST APIs | 4 Analytics Metrics',
+    githubUrl: 'https://github.com/aayushshetty15',
   },
 ];
 
 export const EDUCATION = [
   {
-    degree: 'B.E. in Computer Science and Engineering',
+    degree: 'B.E in Information Science and Engineering',
     institution: 'AJ Institute of Engineering and Technology',
     period: 'Dec 2022 — May 2026',
-    description: 'CGPA: 7.68 / 10. AJ Institute of Engineering and Technology.'
+    description: 'CGPA: 7.68 / 10. AJ Institute of Engineering and Technology, Mangaluru.',
   },
   {
     degree: 'Pre-University (PCMS)',
@@ -88,8 +173,8 @@ export const EDUCATION = [
 ];
 
 export const STATS = [
-  { value: 1, suffix: '', label: 'Research Internship' },
-  { value: 2, suffix: '+', label: 'Full-Stack Projects' },
-  { value: 10, suffix: '+', label: 'Responsive Pages' },
-  { value: 8, suffix: '+', label: 'RESTful Endpoints' },
+  { value: 2, suffix: '', label: 'Internships Completed' },
+  { value: 3, suffix: '', label: 'Production Projects' },
+  { value: 43, suffix: '+', label: 'REST APIs Developed' },
+  { value: 9000, suffix: '+', label: 'AI Samples Evaluated' },
 ];

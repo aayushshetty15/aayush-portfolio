@@ -1,7 +1,7 @@
 import { EXPERIENCE } from '@/data/portfolio';
 import SectionHeading, { RevealWrapper } from '@/components/SectionHeading';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
-import { Briefcase, Check } from 'lucide-react';
+import { Briefcase, Check, MapPin } from 'lucide-react';
 
 export default function Experience() {
   const { ref: lineRef, isVisible: lineVisible } = useScrollReveal<HTMLDivElement>({ threshold: 0.1 });
@@ -16,7 +16,7 @@ export default function Experience() {
         <SectionHeading
           eyebrow="Experience"
           title="Career Timeline"
-          subtitle="Hands-on experience spanning AI research, dataset evaluation, and full-stack web application development."
+          subtitle="Hands-on experience spanning full-stack web application development and AI research internships."
         />
 
         <div className="relative" ref={lineRef}>
@@ -39,7 +39,7 @@ export default function Experience() {
           <div className="space-y-8 sm:space-y-12">
             {EXPERIENCE.map((exp, i) => (
               <RevealWrapper
-                key={exp.role}
+                key={exp.company + exp.role}
                 delay={i * 200}
                 direction={i % 2 === 0 ? 'left' : 'right'}
                 className="relative"
@@ -59,17 +59,27 @@ export default function Experience() {
                   {/* Content */}
                   <div className={`ml-8 sm:ml-12 md:ml-0 md:w-1/2 ${i % 2 === 0 ? 'md:pr-12 md:text-right' : 'md:pl-12'}`}>
                     <div className="rounded-2xl border border-themed bg-card p-4 sm:p-6">
-                      <div className={`mb-2 flex items-center gap-2 ${i % 2 === 0 ? 'md:justify-end' : ''}`}>
-                        <Briefcase className="h-4 w-4 text-accent" style={{ color: 'var(--accent)' }} />
-                        <span className="text-xs font-medium text-secondary" style={{ color: 'var(--text-secondary)' }}>
-                          {exp.period}
-                        </span>
+                      <div className={`mb-2 flex flex-wrap items-center gap-2 ${i % 2 === 0 ? 'md:justify-end' : ''}`}>
+                        <div className="flex items-center gap-1.5">
+                          <Briefcase className="h-3.5 w-3.5 text-accent" style={{ color: 'var(--accent)' }} />
+                          <span className="text-xs font-medium text-secondary" style={{ color: 'var(--text-secondary)' }}>
+                            {exp.period}
+                          </span>
+                        </div>
+                        {exp.location && (
+                          <div className="flex items-center gap-1 text-xs text-secondary" style={{ color: 'var(--text-secondary)' }}>
+                            <span>•</span>
+                            <MapPin className="h-3 w-3 text-accent" style={{ color: 'var(--accent)' }} />
+                            <span>{exp.location}</span>
+                          </div>
+                        )}
                       </div>
                       <h3 className="text-lg font-bold text-primary" style={{ color: 'var(--text-primary)' }}>
                         {exp.role}
                       </h3>
-                      <p className="mb-3 text-sm font-semibold text-accent" style={{ color: 'var(--accent)' }}>
+                      <p className="mb-2 text-sm font-semibold text-accent" style={{ color: 'var(--accent)' }}>
                         {exp.company}
+                        <span className="ml-2 text-xs font-normal text-secondary opacity-80">({exp.type})</span>
                       </p>
                       <p className="mb-4 text-sm leading-relaxed text-secondary" style={{ color: 'var(--text-secondary)' }}>
                         {exp.description}
@@ -82,10 +92,24 @@ export default function Experience() {
                             style={{ color: 'var(--text-secondary)' }}
                           >
                             <Check className="mt-0.5 h-3 w-3 shrink-0 text-accent" style={{ color: 'var(--accent)' }} />
-                            {a}
+                            <span>{a}</span>
                           </li>
                         ))}
                       </ul>
+
+                      {exp.technologies && exp.technologies.length > 0 && (
+                        <div className={`mt-4 flex flex-wrap gap-1.5 pt-3 border-t border-themed ${i % 2 === 0 ? 'md:justify-end' : ''}`}>
+                          {exp.technologies.map((tech) => (
+                            <span
+                              key={tech}
+                              className="rounded-md border border-themed px-2 py-0.5 text-[11px] font-medium text-secondary"
+                              style={{ color: 'var(--text-secondary)' }}
+                            >
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
