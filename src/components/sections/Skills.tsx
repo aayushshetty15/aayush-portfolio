@@ -17,12 +17,20 @@ const SKILL_CATEGORIES = [
   {
     title: 'Programming Languages',
     icon: Code2,
-    skills: ['JavaScript', 'Python', 'PHP', 'HTML5', 'CSS3'],
+    skills: ['JavaScript', 'TypeScript', 'Python', 'PHP', 'HTML5', 'CSS3'],
   },
   {
     title: 'Tools & Platforms',
     icon: Wrench,
-    skills: ['Git', 'GitHub'],
+    skills: [
+      'Git',
+      'GitHub',
+      'MERN Stack',
+      'REST APIs',
+      'CRUD Operations',
+      'Authentication & Authorization',
+      'API Integration',
+    ],
   },
   {
     title: 'Soft Skills',

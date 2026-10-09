@@ -23,6 +23,7 @@ export const SKILLS: SkillItem[] = [
 
   // Programming Languages
   { name: 'JavaScript', level: 90, category: 'Programming Languages' },
+  { name: 'TypeScript', level: 86, category: 'Programming Languages' },
   { name: 'Python', level: 80, category: 'Programming Languages' },
   { name: 'PHP', level: 82, category: 'Programming Languages' },
   { name: 'HTML5', level: 95, category: 'Programming Languages' },
@@ -36,6 +37,11 @@ export const SKILLS: SkillItem[] = [
   // Tools & Platforms
   { name: 'Git', level: 88, category: 'Tools & Platforms' },
   { name: 'GitHub', level: 88, category: 'Tools & Platforms' },
+  { name: 'MERN Stack', level: 90, category: 'Tools & Platforms' },
+  { name: 'REST APIs', level: 92, category: 'Tools & Platforms' },
+  { name: 'CRUD Operations', level: 90, category: 'Tools & Platforms' },
+  { name: 'Authentication & Authorization', level: 88, category: 'Tools & Platforms' },
+  { name: 'API Integration', level: 88, category: 'Tools & Platforms' },
 ];
 
 export const SOFT_SKILLS = [
@@ -93,21 +99,30 @@ export const EXPERIENCE: ExperienceItem[] = [
 ];
 
 export interface ProjectItem {
+  id: string;
   title: string;
   subtitle: string;
+  category: string;
   type: string;
   description: string;
   bullets: string[];
   tags: string[];
   metric: string;
   githubUrl: string;
+  liveUrl?: string;
+  hasRedBorder?: boolean;
+  image?: string;
 }
 
 export const PROJECTS: ProjectItem[] = [
   {
+    id: 'flowforge',
     title: 'FlowForge',
     subtitle: 'Visual Workflow Automation Platform',
+    category: 'WEB DESIGN / DEVELOPMENT',
     type: 'Individual Project',
+    hasRedBorder: true,
+    image: '/projects/flowforge-thumb.png',
     description: 'A visual workflow automation platform supporting 4 node types (Webhook, Condition, HTTP, Notification), cycle-protected execution, 3-layer rate limiting, and comprehensive acceptance testing.',
     bullets: [
       'Built a visual workflow automation platform supporting 4 node types: Webhook, Condition, HTTP, and Notification.',
@@ -120,9 +135,13 @@ export const PROJECTS: ProjectItem[] = [
     githubUrl: 'https://github.com/aayushshetty15',
   },
   {
+    id: 'carconnect',
     title: 'CarConnect',
     subtitle: 'Online Used Car Marketplace',
+    category: 'DATABASE & SYSTEM ARCHITECTURE',
     type: 'Individual Project',
+    hasRedBorder: false,
+    image: '/projects/carconnect-thumb.png',
     description: 'A multi-role marketplace with 70+ PHP files supporting authentication, listings, search, messaging, orders, and reviews with a 13-table MySQL database and analytics modules.',
     bullets: [
       'Built a 3-role marketplace with 70+ PHP files supporting authentication, listings, search, messaging, orders, and reviews.',
@@ -135,18 +154,40 @@ export const PROJECTS: ProjectItem[] = [
     githubUrl: 'https://github.com/aayushshetty15',
   },
   {
-    title: 'LearnBridge',
-    subtitle: 'Learning Management Platform',
+    id: 'munchly',
+    title: 'Munchly',
+    subtitle: 'Reels-Based Food Discovery Platform',
+    category: 'FULL STACK / STREAMING PLATFORM',
     type: 'Individual Project',
-    description: 'A full-stack 2-role learning platform for Students and Instructors featuring dedicated dashboards, 43 REST APIs, Google OAuth, and learning progress analytics.',
+    hasRedBorder: false,
+    description: 'A MERN-stack food discovery platform featuring a vertical, reels-style video feed for browsing food content and partners, 2-role JWT authentication, 4 core backend REST capabilities, and ImageKit cloud media integration.',
     bullets: [
-      'Built a 2-role learning platform for Students and Instructors with dedicated dashboards for course and learner management.',
-      'Developed 43 REST APIs for authentication, courses, enrollments, materials, messaging, profiles, and analytics.',
-      'Implemented JWT authentication, Google OAuth, bcrypt hashing, RBAC, course publishing, enrollments, and file uploads.',
-      'Added 4 analytics metrics to track enrollments, materials, messages, and learning progress.',
+      'Built a MERN-stack food discovery platform featuring a vertical, reels-style video feed for browsing food content and food partners.',
+      'Implemented 2 distinct user roles with JWT-based authentication, protected routes, and cookie-based session handling.',
+      'Developed 4 core backend capabilities: authentication, food content creation, content retrieval, and media uploads using REST APIs.',
+      'Integrated 1 cloud media service (ImageKit) with Multer and Axios for media uploads and frontend-backend communication.',
     ],
     tags: ['React.js', 'Node.js', 'Express.js', 'MongoDB', 'REST APIs', 'JWT', 'Tailwind CSS', 'Google OAuth'],
-    metric: '43 REST APIs | 4 Analytics Metrics',
+    metric: 'Reels Video Feed | ImageKit Cloud Media',
+    githubUrl: 'https://github.com/aayushshetty15',
+  },
+  {
+    id: 'portfolio',
+    title: 'Personal Portfolio',
+    subtitle: 'Interactive 3D Developer Website',
+    category: 'CREATIVE TECH / 3D WEB EXPERIENCE',
+    type: 'Individual Project',
+    hasRedBorder: true,
+    image: '/projects/portfolio-thumb.png',
+    description: 'A high-performance modern developer portfolio with an interactive 3D tech stack physics model in Three.js and React Three Fiber, 2 theme modes with localStorage persistence, glassmorphism UI, and responsive layouts across all device viewports.',
+    bullets: [
+      'Developed a responsive portfolio using 4 core technologies: React, Vite, TypeScript, and Tailwind CSS to showcase projects, skills, education, and experience.',
+      'Integrated an interactive 3D tech stack model using Three.js and React Three Fiber for an immersive user experience.',
+      'Implemented 2 theme modes with persistent preferences using localStorage, alongside gradient effects, glassmorphism, and hover animations.',
+      'Designed 3 responsive layout categories—desktop, tablet, and mobile—with reusable React components and interactive UI elements.',
+    ],
+    tags: ['React', 'Vite', 'TypeScript', 'Tailwind CSS', 'Three.js', 'React Three Fiber', 'Node.js', 'MongoDB'],
+    metric: 'Three.js 3D Physics | Dual Theme Engine',
     githubUrl: 'https://github.com/aayushshetty15',
   },
 ];
@@ -174,7 +215,8 @@ export const EDUCATION = [
 
 export const STATS = [
   { value: 2, suffix: '', label: 'Internships Completed' },
-  { value: 3, suffix: '', label: 'Production Projects' },
-  { value: 43, suffix: '+', label: 'REST APIs Developed' },
+  { value: 4, suffix: '', label: 'Production Projects' },
+  { value: 45, suffix: '+', label: 'Acceptance Tests' },
   { value: 9000, suffix: '+', label: 'AI Samples Evaluated' },
 ];
+
